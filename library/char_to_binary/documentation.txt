@@ -1,0 +1,12 @@
+Main element: char_to_binary.py
+
+Usage:
+
+import char_to_binary
+
+Functions:
+
+char_to_binary.convert_to_binary(char) - Takes a UTF-8 char and returns a string that is its
+binary representation. 
+
+Written by Ahmet Baki

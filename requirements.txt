@@ -1,0 +1,7 @@
+main.py [-e || -d] [input_file] [output_file]
+
+Should be able to call main.py in such a way that the input is either encoded
+or decoded into the output file. -e specifies encode, -d specifies decode.
+Key for now should only be hardcoded as 56 (62) 0s. 
+
+By Ahmet Baki

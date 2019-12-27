@@ -1,0 +1,12 @@
+Main element: binary_to_chars.py
+
+Usage:
+
+import binary_to_chars
+
+Functions:
+
+binary_to_chars.convert_to_chars(binary) - Takes a (potentially large) string of binary 
+that corresponds to UTF-8 text and converts it into a list of chars. 
+
+Written by Ahmet Baki
