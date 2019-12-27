@@ -4,6 +4,6 @@ Call main.py with specified options. -e - Encrypt, -d - Decrypt.
 Decrypt not yet implemented as of v0.3
 
 
-v0.3
+v0.5
 
 Written by Ahmet Baki
