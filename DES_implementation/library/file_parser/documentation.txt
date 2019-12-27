@@ -1,0 +1,12 @@
+Main element: file_parser.py
+
+Usage:
+
+import file_parser
+
+Functions:
+
+file_parser.read(input) - Given a string input that consitutes the path to a text file, 
+will read the contents of the file and return a char array.
+
+Written by Ahmet Baki

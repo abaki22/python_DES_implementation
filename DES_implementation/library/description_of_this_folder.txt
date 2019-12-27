@@ -1,0 +1,2 @@
+This folder contains all the reusable library modules/classes I created for my #
+DES implementation. All of the modules/classes here are covered by tests. 
