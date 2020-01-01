@@ -18,7 +18,11 @@ class DES_Data_Suite:
     permuted_choice_1_right = ""
     permuted_choice_2 = ""
     bit_rotation_table = ""
-    
+    expansion_permutation = ""
+
+    #3D List. 1st dimension is the s-box, 2nd dimension is row, 3rd dimension column
+    s_boxes = []
+
     def __init__(self):
         self.initial_permutation = \
         file_parser.parse_DES_Data('./DES_library/initial_permutation.txt')
@@ -32,7 +36,10 @@ class DES_Data_Suite:
         file_parser.parse_DES_Data('./DES_library/bit_rotation_table.txt')
         self.permuted_choice_2 = \
         file_parser.parse_DES_Data('./DES_library/permuted_choice_2.txt')
+        self.expansion_permutation = \
+        file_parser.parse_DES_Data('./DES_library/expansion_function.txt')
 
+        self.s_boxes = file_parser.construct_s_boxes()
 
 
 def encrypt(key, blocks):
@@ -57,8 +64,10 @@ def encrypt_block(key, block, data_suite):
     permuted_block = []
     #Initialise permuted_block size to be the size of the initial block. Not 
     #very python like, but quick and easy. 
-    for char in block:
-        permuted_block.append(50) 
+    permuted_block_length = 0
+    while permuted_block_length < 64:
+        permuted_block.append(50)
+        permuted_block_length += 1
     #If there are any '50's left in the block after encryption, something went
     #wrong. 
 
@@ -68,7 +77,7 @@ def encrypt_block(key, block, data_suite):
     for new_index in data_suite.initial_permutation:
         #Reference files for the initial_permutation index from 1-64, but I 
         #need to index from 0-63, so take away 1 from the new_index
-        permuted_block[new_index - 1] = block[bit_pointer]
+        permuted_block[bit_pointer] = block[new_index - 1]
         bit_pointer += 1
     
 
@@ -82,6 +91,8 @@ def encrypt_block(key, block, data_suite):
                                      current_key, data_suite, round_number)
         round_number += 1
 
+    result_of_rounds = current_block
+
     #Penultimate step - 32 bit swap
 
 
@@ -90,13 +101,15 @@ def encrypt_block(key, block, data_suite):
 
     #Final step: Apply final permutation on block and return. 
     final_permuted_block = []
-    for char in block:
+    permuted_block_length = 0
+    while permuted_block_length < 64:
         final_permuted_block.append(50)
+        permuted_block_length += 1
 
     bit_pointer = 0
     for new_index in data_suite.final_permutation:
         #Use same trick as the initial_permutation: take 1 from the new_index
-        final_permuted_block[new_index - 1] = permuted_block[bit_pointer]
+        final_permuted_block[bit_pointer] = result_of_rounds[new_index - 1]
         bit_pointer += 1
 
     #Format final result as a single string, and then return

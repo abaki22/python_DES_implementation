@@ -31,7 +31,7 @@ for block in DES_output_blocks:
 
 
 
-binary_string = binary_to_chars.convert_to_chars(final_DES_output, padding_length)
+binary_string = binary_to_chars.convert_to_chars(final_DES_output)
 final_output = ""
 for char in binary_string:
     final_output += char
