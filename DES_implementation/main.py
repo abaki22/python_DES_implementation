@@ -17,7 +17,7 @@ DES_input_blocks, padding_length = DES_input_cleaner.clean_input(input_file_cont
 
 ##### DES #####
 
-key = key_generation.generate_key()
+key = key_generation.generate_key_SIMPLE()
 
 DES_output_blocks = DES.encrypt(key, DES_input_blocks)
 
@@ -31,10 +31,11 @@ for block in DES_output_blocks:
 
 
 
-binary_string = binary_to_chars.convert_to_chars(final_DES_output, padding_length)
-final_output = ""
-for char in binary_string:
-    final_output += char
+#binary_string = binary_to_chars.convert_to_chars(final_DES_output)
+#final_output = ""
+#for char in binary_string:
+#    final_output += char
+final_output = final_DES_output
 
 
 output_file = open(output_file, "w")
