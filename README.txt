@@ -1,10 +1,12 @@
 main.py [-e || -d] [input_file] [output_file]
 
 Call main.py with specified options. -e - Encrypt, -d - Decrypt. 
-Encryption complete, but untested. Not sure if it produces the correct output.
-TODO: Need to write at least one end to end test. Implement decryption. 
+Encryption verified to work. Still needs testing however for robustness. 
+TODO: Implement terminal interface.
+Write tests. 
+Implement decryption
 
 
-v0.75
+v0.83
 
 Written by Ahmet Baki

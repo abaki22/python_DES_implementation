@@ -5,11 +5,11 @@ def perform_round(block, key, data_suite, round_number):
     output_block = ""
     left_half = []
     right_half = []
-    while bit_pointer <= 31:
+    while bit_pointer < 32:
         left_half.append(block[bit_pointer])
         bit_pointer += 1
 
-    while bit_pointer <= 63:
+    while bit_pointer < 64:
         right_half.append(block[bit_pointer])
         bit_pointer += 1
 
@@ -40,8 +40,21 @@ def perform_round(block, key, data_suite, round_number):
 
 #Applies permutation_P to the input and returns it.
 #Expects a 32 length list/string as an input as well as the data suite. 
-def permutation_P(input, data_suite):
-    return input
+def permutation_P(input_p, data_suite):
+    permuted_block = []
+    bit_pointer = 0
+    while bit_pointer < 32:
+        permuted_block.append(50)
+        bit_pointer += 1
+
+    bit_pointer = 0
+    for new_index in data_suite.permutation_p:
+        #Reference files for the initial_permutation index from 1-64, but I 
+        #need to index from 0-63, so take away 1 from the new_index
+        permuted_block[bit_pointer] = input_p[new_index - 1]
+        bit_pointer += 1
+
+    return permuted_block
 
 #Takes a 48 bit input and passes it through the sub boxes, return a 32 bit input.
 #Expects a binary char list and the data suite as the input
@@ -99,10 +112,13 @@ def xor_binary(string_a, string_b):
     bit_pointer = 0
     loop_length = len(string_a)
 
+    if len(string_a) != len(string_b):
+        raise Exception('XOR_failed: Input strings of unequal length')
+
     while bit_pointer < loop_length:
         if (string_a[bit_pointer] == '1') & (string_b[bit_pointer] == '1'):
             result.append('0')
-        elif (string_a[bit_pointer] == '0') & (string_b[bit_pointer] == '1'):
+        elif (string_a[bit_pointer] == '0') & (string_b[bit_pointer] == '0'):
             result.append('0')
         else: 
             result.append('1')
