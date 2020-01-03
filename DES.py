@@ -96,9 +96,11 @@ def encrypt_block(key, block, data_suite):
     result_of_rounds = current_block
 
     #Penultimate step - 32 bit swap. Swap left and right of final block. 
+    #This doesn't add any strength cryptographically but allows 
     output_block = ""
     left_half = []
     right_half = []
+    bit_pointer = 0
     while bit_pointer < 32:
         left_half.append(result_of_rounds[bit_pointer])
         bit_pointer += 1
