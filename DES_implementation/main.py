@@ -7,20 +7,23 @@ import DES
 
 ##### Command line inputs ####
 mode = sys.argv[1]
-input_file = sys.argv[2]
-output_file = sys.argv[3]
+input_mode = sys.argv[2]
+input_file = sys.argv[3]
+output_file = sys.argv[4]
 
 ###### Format Input #####
 input_file_contents = file_parser.parse(input_file)
 
-DES_input_blocks, padding_length = DES_input_cleaner.clean_input(input_file_contents)
+DES_input_blocks = ""
+if input_mode == 'utf-8':
+    DES_input_blocks, padding_length = DES_input_cleaner.clean_input(input_file_contents)
+elif input_mode == 'b':
+    DES_input_blocks, padding_length = DES_input_cleaner.clean_input_binary(input_file_contents)
 
 ##### DES #####
 
-key = key_generation.generate_key_SIMPLE()
-
+key = key_generation.generate_key_WEAK()
 DES_output_blocks = DES.encrypt(key, DES_input_blocks)
-
 final_DES_output = ""
 for block in DES_output_blocks:
     final_DES_output += block

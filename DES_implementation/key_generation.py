@@ -2,18 +2,20 @@
 #but open to extension.
 def generate_key_SIMPLE():
     key = ''
-    #Generate key and parity bits. Parity bits must be appended at the end of 
-    #every 'byte'. bit_counter starts at 1 instead of 0 so 0th pos is not a 
-    #1
-    bit_counter = 1
-    while len(key) < 64:
-        if (bit_counter % 8) == 0:
+    bit_counter = 0
+    while bit_counter < 64:
+        if (bit_counter % 2) == 0:
+            key += '1'
+        else:
             key += '0'
-        else: 
-            if (bit_counter % 2) == 0:
-                key += '0'
-            else:
-                key += '1'
         bit_counter += 1
-        
+    
+    return key
+
+#Returns a known weak key of DES.
+#A 'weak' key of DES is a key whose encryption and decryption are the same
+#function.
+def generate_key_WEAK():
+    key = '1111111011111110111111101111111011111110111111101111111011111110'
+
     return key

@@ -58,9 +58,9 @@ def encrypt(key, blocks):
 
     return encrypted_blocks
 
-
-
-
+#Given a key and a block as well as the data suite, encrypts a block. 
+#Key and block must either be a binary char list or a binary bit string
+#(as in, a literal string of 0s and 1s)
 def encrypt_block(key, block, data_suite):
     #Step 1: Apply initial permutation on block
 
@@ -95,10 +95,25 @@ def encrypt_block(key, block, data_suite):
 
     result_of_rounds = current_block
 
-    #Penultimate step - 32 bit swap
+    #Penultimate step - 32 bit swap. Swap left and right of final block. 
+    #This doesn't add any strength cryptographically but allows 
+    output_block = ""
+    left_half = []
+    right_half = []
+    bit_pointer = 0
+    while bit_pointer < 32:
+        left_half.append(result_of_rounds[bit_pointer])
+        bit_pointer += 1
 
+    while bit_pointer < 64:
+        right_half.append(result_of_rounds[bit_pointer])
+        bit_pointer += 1
+    
 
+    output_block += DES_round.parse_binary_string(right_half)
+    output_block += DES_round.parse_binary_string(left_half)
 
+    
 
 
     #Final step: Apply final permutation on block and return. 
@@ -111,7 +126,7 @@ def encrypt_block(key, block, data_suite):
     bit_pointer = 0
     for new_index in data_suite.final_permutation:
         #Use same trick as the initial_permutation: take 1 from the new_index
-        final_permuted_block[bit_pointer] = result_of_rounds[new_index - 1]
+        final_permuted_block[bit_pointer] = output_block[new_index - 1]
         bit_pointer += 1
 
     #Format final result as a single string, and then return
