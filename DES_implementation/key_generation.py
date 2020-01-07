@@ -1,13 +1,21 @@
 #Module to generate a key. Currently, implementation is exceedingly simplistic,
 #but open to extension.
-def generate_key():
+def generate_key_SIMPLE():
     key = ''
-    #Generate key
-    while len(key) < 56:
-        key += '0'
+    bit_counter = 0
+    while bit_counter < 64:
+        if (bit_counter % 2) == 0:
+            key += '1'
+        else:
+            key += '0'
+        bit_counter += 1
     
-    #Generate parity bits
-    while len(key) < 64: 
-        key += "1"
+    return key
+
+#Returns a known weak key of DES.
+#A 'weak' key of DES is a key whose encryption and decryption are the same
+#function.
+def generate_key_WEAK():
+    key = '1111111011111110111111101111111011111110111111101111111011111110'
 
     return key

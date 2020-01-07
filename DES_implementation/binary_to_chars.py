@@ -1,6 +1,6 @@
 #Takes a string of binary bits and returns a list of the characters that string corresponds
 #to. 
-def convert_to_chars(binary, padding_length):
+def convert_to_chars_wPadding(binary, padding_length):
     #Turn the input string of binary bits into the corresponding number
     binary_representation = int(binary, 2)
 
@@ -20,5 +20,20 @@ def convert_to_chars(binary, padding_length):
     #Strip padding - Not implemented in library or tested. Added for specific
     #purpose of DES.
     chars = chars[0:(len(chars) - padding_length)]
+
+    return chars
+
+#Same as previous function, but without stripping the padding. 
+def convert_to_chars(binary):
+    binary_representation = int(binary, 2)
+
+    binary_representation = int(binary_representation)\
+                        .to_bytes(len(binary) // 8, byteorder='big')
+
+    string_intermediary = binary_representation.decode('utf-8')
+
+    chars = []
+    for char in string_intermediary:
+        chars.append(char)
 
     return chars
